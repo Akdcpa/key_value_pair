@@ -11,16 +11,20 @@ const getData = (req , res) =>{
     var data = fs.readFileSync(file);
     var words = JSON.parse(data);
 
-    let result = []
-    for(var i in words){ 
-        let def = words[i]["timestamp"];
-        if(def==0 || new Date().getTime()<=def){
-            result.push([i,words[i]])
+    var temp = words;
+
+    let result=[];
+    for(var i in temp){ 
+        let def = temp[i]["timestamp"];
+        if(def<0 || new Date().getTime()>=def){
+            delete temp[i]
         }
      }
+    var data = JSON.stringify(temp,null,2)
 
-    console.log("Mofdified",result)
-    return JSON.stringify(words);
+    console.log("Mofdified",JSON.stringify(temp))
+    return JSON.stringify(temp); 
+
 }
 
 const addWord = (req,res) =>{ 
