@@ -10,6 +10,15 @@ const getData = (req , res) =>{
     var data = fs.readFileSync(file);
     var words = JSON.parse(data);
 
+    let result = []
+    for(var i in words){ 
+        let def = words[i]["timestamp"];
+        if(def==0 || new Date().getTime()<=def){
+            result.push([i,words[i]])
+        }
+     }
+
+    console.log("Mofdified",result)
     return JSON.stringify(words);
 }
 
@@ -18,7 +27,8 @@ const addWord = (req,res) =>{
     var file = req.body.path
     var key = req.body.key;
     var value = req.body.value;
-    var time = req.body.time;
+    var timestamp = req.body.timestamp;
+    // var date = req.body.date;
     
     var data = fs.readFileSync(file);
     var words = JSON.parse(data);
@@ -36,7 +46,8 @@ const addWord = (req,res) =>{
     else{
         words[key] = {
             "data":value,
-            "time":time
+            // "date":date,
+            "timestamp":timestamp
         }
         var data = JSON.stringify(words,null,2)
 
@@ -63,7 +74,7 @@ const deleteWord = (req,res) =>{
     var data = fs.readFileSync(file);
     var words = JSON.parse(data);
     
-    var key = req.params.key; 
+    var key = req.body.key; 
 
     if(words[key]!=null){
 
@@ -98,6 +109,8 @@ const deleteWord = (req,res) =>{
 
 const checkPath = (req,res) => {
     var path = req.body.path
+
+    console.log("Path node",path)
  
     try {
         if (fs.existsSync(path)) { 
@@ -115,7 +128,7 @@ const checkPath = (req,res) => {
       }
     return JSON.stringify({
         "msg":path+" "+"File does not exists",
-        "status":"success"
+        "status":"fail"
     })
 }
 

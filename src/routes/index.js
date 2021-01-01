@@ -10,7 +10,7 @@ const {
 
 var fs = require('fs')
 
-router.post('/' , (req , res)=>{
+router.post('/api/get' , (req , res)=>{
     res.send(getData(req,res))
 }) 
 
@@ -18,12 +18,11 @@ router.post('/api/add' , (req , res)=>{
     res.send(addWord(req,res))
 })  
 
-router.post('/api/delete/:key' , (req , res)=>{
+router.post('/api/delete' , (req , res)=>{
     res.send(deleteWord(req,res))
 }) 
 
-router.post('/api/checkPath',(req,res)=>{
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+router.post('/api/checkPath',(req,res)=>{ 
     res.send(checkPath(req,res))
 })
  
