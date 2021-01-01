@@ -65,7 +65,7 @@ export default class FileChoose extends Component {
                 })
             }
             else{
-                localStorage.setItem("path",path)
+                localStorage.setItem("path",this.state.path)
                 this.props.history.push('/main')
             }
         }) 

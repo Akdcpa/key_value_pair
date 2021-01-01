@@ -135,7 +135,7 @@ export default class Main extends Component {
                             let hour = Number(time.slice(0,2))
                             let min = Number(time.slice(3,5))
                             let doc = new Date(year,month,day,hour,min);
-                            let cur = new Date().getTime();
+                            let cur = Date.now();
                             timestamp = doc.getTime(); 
                             console.log("stamp:",year,month,day,hour,min,timestamp,cur)
                         }

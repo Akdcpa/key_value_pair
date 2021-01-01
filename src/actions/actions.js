@@ -7,6 +7,7 @@ require('dotenv').config();
  
 const getData = (req , res) =>{
     var file = req.body.path
+    console.log("Paththt",file)
     var data = fs.readFileSync(file);
     var words = JSON.parse(data);
 
